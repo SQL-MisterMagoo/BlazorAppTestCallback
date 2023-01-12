@@ -1,0 +1,26 @@
+﻿@page "/counter"
+
+<PageTitle>Counter</PageTitle>
+
+<div>Counter Page Time @DateTime.Now</div>
+
+<p role="status">Current count: @currentCount</p>
+
+<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+<button class="btn btn-secondary" @onclick=SomeAction>Click me to re-render the parent through an Action</button>
+<button class="btn btn-secondary" @onclick=LocalSomeAction>Click me to not re-render the parent through the same Action</button>
+
+@code {
+  [Parameter] public Action SomeAction { get; set; }
+  private int currentCount = 0;
+
+  private void IncrementCount()
+  {
+    currentCount++;
+  }
+
+  private void LocalSomeAction()
+  {
+    SomeAction?.Invoke();
+  }
+}
